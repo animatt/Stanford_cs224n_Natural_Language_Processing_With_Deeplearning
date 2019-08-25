@@ -1,0 +1,737 @@
+(base) bash-3.2$ pwd
+/Users/kingcrawford/src/Stanford/Stanford_cs224n_Natural_Language_Processing_With_Deeplearning/assignments/a2/features
+(base) bash-3.2$ conda activate a2
+(a2) bash-3.2$ behave
+Exception ModuleNotFoundError: No module named 'word2vec'
+Traceback (most recent call last):
+  File "/usr/local/anaconda3/envs/a2/bin/behave", line 10, in <module>
+    sys.exit(main())
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/__main__.py", line 183, in main
+    return run_behave(config)
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/__main__.py", line 127, in run_behave
+    failed = runner.run()
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/runner.py", line 804, in run
+    return self.run_with_paths()
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/runner.py", line 809, in run_with_paths
+    self.load_step_definitions()
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/runner.py", line 796, in load_step_definitions
+    load_step_modules(step_paths)
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/runner_util.py", line 412, in load_step_modules
+    exec_file(os.path.join(path, name), step_module_globals)
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/runner_util.py", line 386, in exec_file
+    exec(code, globals_, locals_)
+  File "steps/word2vec_step.py", line 4, in <module>
+    from word2vec import sigmoid
+ModuleNotFoundError: No module named 'word2vec'
+(a2) bash-3.2$ pwd
+/Users/kingcrawford/src/Stanford/Stanford_cs224n_Natural_Language_Processing_With_Deeplearning/assignments/a2/features
+(a2) bash-3.2$ cd ..
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.001s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                         # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                   # None
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                   # None
+    When it is applied to center_word_vec: <center_word_vec:NdArray>, outside_word_idx: <outside_word_idx:NdArray>, outside_word_vecs: <outside_word_vecs:NdArray> # None
+    Then it returns loss: <loss:f>, grad_center_vec: <grad_center_vec:NdArray>, grad_outside_vecs: <grad_outside_vecs:NdArray>                                     # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 0 failed, 0 skipped, 3 undefined
+Took 0m0.003s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@given(u'a naiveSoftmaxLossAndGradient function')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Given a naiveSoftmaxLossAndGradient function')
+
+
+@when(u'it is applied to center_word_vec: <center_word_vec:NdArray>, outside_word_idx: <outside_word_idx:NdArray>, outside_word_vecs: <outside_word_vecs:NdArray>')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: <center_word_vec:NdArray>, outside_word_idx: <outside_word_idx:NdArray>, outside_word_vecs: <outside_word_vecs:NdArray>')
+
+
+@then(u'it returns loss: <loss:f>, grad_center_vec: <grad_center_vec:NdArray>, grad_outside_vecs: <grad_outside_vecs:NdArray>')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then it returns loss: <loss:f>, grad_center_vec: <grad_center_vec:NdArray>, grad_outside_vecs: <grad_outside_vecs:NdArray>')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # None
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # None
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_word_vecs: <outside_word_vecs>                                                                                     # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 0 failed, 1 skipped, 2 undefined
+Took 0m0.002s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@given(u'a naiveSoftmaxLossAndGradient function')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Given a naiveSoftmaxLossAndGradient function')
+
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_word_vecs: <outside_word_vecs>')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_word_vecs: <outside_word_vecs>')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.002s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_word_vecs: <outside_word_vecs>                                                                                     # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 1 skipped, 1 undefined
+Took 0m0.004s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_word_vecs: <outside_word_vecs>')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_word_vecs: <outside_word_vecs>')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.000s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: <outside_vectorss>                                                                                        # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 1 skipped, 1 undefined
+Took 0m0.003s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: <outside_vectorss>')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: <outside_vectorss>')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.000s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: <outside_vectors>                                                                                         # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 1 skipped, 1 undefined
+Took 0m0.003s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: <outside_vectors>')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: <outside_vectors>')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.000s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.001s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]                                                       # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 1 skipped, 1 undefined
+Took 0m0.003s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.000s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]                                                       # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 1 skipped, 1 undefined
+Took 0m0.003s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.000s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]                                                       # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 1 skipped, 1 undefined
+Took 0m0.003s
+
+You can implement step definitions for undefined steps with these snippets:
+
+@when(u'it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]')
+
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.000s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+      TypeError: step_imp() missing 1 required positional argument: 'out'
+
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]                                                       # None
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+12 steps passed, 1 failed, 2 skipped, 0 undefined
+Took 0m0.003s
+(a2) bash-3.2$ python --version
+Python 3.7.4
+(a2) bash-3.2$ python
+Python 3.7.4 (default, Aug  9 2019, 12:36:10) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy as np
+>>> np.testing.assert_allclose(3, 3)
+>>> np.testing.assert_allclose(3, 32)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/numpy/testing/_private/utils.py", line 1501, in assert_allclose
+    verbose=verbose, header=header, equal_nan=equal_nan)
+  File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/numpy/testing/_private/utils.py", line 827, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-07, atol=0
+
+Mismatch: 100%
+Max absolute difference: 29
+Max relative difference: 0.90625
+ x: array(3)
+ y: array(32)
+>>> np.testing.assert_allclose(3, 3)
+>>> 
+(a2) bash-3.2$ behave
+Feature: Test Word2Vec Implementation # features/word2vec.feature:1
+
+  Scenario Outline: sigmoid -- @1.1 float  # features/word2vec.feature:10
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10
+    When it is applied to 0.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14
+    Then 0.5 is returned                   # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.2 float  # features/word2vec.feature:11
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10
+    When it is applied to 1.0              # features/steps/word2vec_step.py:10 0.000s
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14
+    Then 0.7310585786 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @1.3 float  # features/word2vec.feature:12
+    Given a sigmoid function               # features/steps/word2vec_step.py:6
+    Given a sigmoid function               # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10
+    When it is applied to -1.0             # features/steps/word2vec_step.py:10 0.000s
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14
+    Then 0.2689414214 is returned          # features/steps/word2vec_step.py:14 0.000s
+
+  Scenario Outline: sigmoid -- @2.1 ndarray            # features/word2vec.feature:16
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6
+    Given a sigmoid function                           # features/steps/word2vec_step.py:6 0.000s
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19
+    When it is applied to [-1, 0, 1]                   # features/steps/word2vec_step.py:19 0.000s
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23
+    Then [0.2689414214, 0.5, 0.7310585786] is returned # features/steps/word2vec_step.py:23 0.001s
+
+  Scenario Outline: naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays                                                                                                                                  # features/word2vec.feature:26
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28
+    Given a naiveSoftmaxLossAndGradient function                                                                                                                                                            # features/steps/word2vec_step.py:28 0.000s
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]                                                       # features/steps/word2vec_step.py:32
+    When it is applied to center_word_vec: [0.2, 1.0, 0.5], outside_word_idx: 1, outside_vectors: [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]]                                                       # features/steps/word2vec_step.py:32 0.002s
+      Traceback (most recent call last):
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/usr/local/anaconda3/envs/a2/lib/python3.7/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features/steps/word2vec_step.py", line 41, in step_imp
+          None
+        File "/Users/kingcrawford/src/Stanford/Stanford_cs224n_Natural_Language_Processing_With_Deeplearning/assignments/a2/word2vec.py", line 64, in naiveSoftmaxLossAndGradient
+          return loss, gradCenterVec, gradOutsideVecs
+      NameError: name 'loss' is not defined
+
+    Then it returns loss: 1.895613488056148, grad_center_vec: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343], grad_outside_vecs: [0.7948861720921339, 0.7948861720921343, 0.7948861720921343] # None
+
+
+Failing scenarios:
+  features/word2vec.feature:26  naiveSoftmaxLossAndGradient -- @1.1 float and ndarrays
+
+0 features passed, 1 failed, 0 skipped
+4 scenarios passed, 1 failed, 0 skipped
+13 steps passed, 1 failed, 1 skipped, 0 undefined
+Took 0m0.004s
+(a2) bash-3.2$ python
+Python 3.7.4 (default, Aug  9 2019, 12:36:10) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy as np
+>>> 5.exp
+  File "<stdin>", line 1
+    5.exp
+        ^
+SyntaxError: invalid syntax
+>>> np.arange(5).exp
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'numpy.ndarray' object has no attribute 'exp'
+>>> np.arange(5).sum
+<built-in method sum of numpy.ndarray object at 0x105f0d800>
+>>> np.arange(5).sum()
+10
+>>> np.arange(5).exp()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'numpy.ndarray' object has no attribute 'exp'
+>>> 
+(a2) bash-3.2$ python
+Python 3.7.4 (default, Aug  9 2019, 12:36:10) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import numpy as np
+>>> vec  = np.arange(5)[:, None]
+>>> pp vec
+  File "<stdin>", line 1
+    pp vec
+         ^
+SyntaxError: invalid syntax
+>>> print(vec)
+[[0]
+ [1]
+ [2]
+ [3]
+ [4]]
+>>> print(vec == 2)
+[[False]
+ [False]
+ [ True]
+ [False]
+ [False]]
+>>> print((vec == 2) + (vec == 1))
+[[False]
+ [ True]
+ [ True]
+ [False]
+ [False]]
+>>> print((vec == 2) + (np.arange(5)[:, None]))
+[[0]
+ [1]
+ [3]
+ [3]
+ [4]]
+>>> vec = np.arange(5)
+>>> print(vec)
+[0 1 2 3 4]
+>>> Mat = np.arange(25).reshape((5, 5))

@@ -1,0 +1,25 @@
+from math import isclose
+from behave import *
+import numpy as np
+from word2vec import sigmoid
+
+@given('a sigmoid function')
+def step_impl(context):
+    pass
+
+@when('it is applied to {inp:f}')
+def step_impl(context, inp):
+    context.result = sigmoid(inp)
+
+@then('{out:f} is returned')
+def step_impl(context, out):
+    assert isclose(context.result, out), \
+        f'Expected {out}, got {context.result}'
+
+@when('it is applied to {inp:NdArray}')
+def step_imp(context, inp):
+    context.result = sigmoid(inp)
+
+@then('{out:NdArray} is returned')
+def step_imp(context, out):
+    np.testing.assert_allclose(context.result, out)
