@@ -6,6 +6,7 @@ import random
 from utils.gradcheck import gradcheck_naive
 from utils.utils import normalizeRows, softmax
 
+from debug import *
 
 def sigmoid(x):
     """
@@ -53,14 +54,20 @@ def naiveSoftmaxLossAndGradient(
     """
 
     ### YOUR CODE HERE
+    if __name__ == '__main__':
+        # thought words were the columns when I wrote the tests
+        outsideVectors = outsideVectors.T
 
-    N, _ = outsideVectors.shape
+    _, N = outsideVectors.shape
+
+    dbprint('centerWordVec', 'outsideWordIdx', 'outsideVectors', **locals())
 
     outside_vec_scores = np.exp(outsideVectors.T @ centerWordVec)
     score_normalizer = outside_vec_scores.sum(axis=0)
     outside_vec_probs = outside_vec_scores / score_normalizer
 
     loss = - np.log(outside_vec_probs[outsideWordIdx])
+    dbprint('outsideVectors', 'outside_vec_probs', 'outsideVectors', 'N', **locals())
     gradCenterVec = outsideVectors @ (
         outside_vec_probs - (np.arange(N) == outsideWordIdx)
     )
@@ -112,10 +119,30 @@ def negSamplingLossAndGradient(
     indices = [outsideWordIdx] + negSampleWordIndices
 
     ### YOUR CODE HERE
+    if __name__ == '__main__':
+        outsideVectors = outsideVectors.T
 
-    ### Please use your implementation of sigmoid in here.
+    u = outsideVectors[:, outsideWordIdx]
+    v = centerWordVec
+    U = outsideVectors[:, negSampleWordIndices]
+    idx = negSampleWordIndices
+    gradOutsideVecs = np.zeros_like(outsideVectors, dtype=np.float64)
 
+    dbprint('u.shape', 'v.shape', 'U.shape', **locals())
 
+    loss = - np.log(sigmoid(u.T @ v)) - np.log(sigmoid(- U.T @ v)).sum()
+
+    # breakpoint()
+    center_vec_term_1 = - (1 - sigmoid(u.T @ v)) * u
+    center_vec_term_2 =  ((1 - sigmoid(- v.T @ U)) * U).sum(1)
+    gradCenterVec = center_vec_term_1 + center_vec_term_2
+
+    outside = v[:, None] * (1 - sigmoid(- v.T @ U))
+    gradOutsideVecs[:, outsideWordIdx] = - (1 - sigmoid(v.T @ u)) * v
+    np.add.at(gradOutsideVecs, (slice(0, None), idx), outside)
+
+    dbprint('u', 'v', 'U', 'loss', 'gradCenterVec', 'gradOutsideVecs',
+            **locals())
     ### END YOUR CODE
 
     return loss, gradCenterVec, gradOutsideVecs
@@ -157,7 +184,19 @@ def skipgram(currentCenterWord, windowSize, outsideWords, word2Ind,
     gradOutsideVectors = np.zeros(outsideVectors.shape)
 
     ### YOUR CODE HERE
-
+    dbprint('currentCenterWord', 'windowSize', 'outsideWords', 'word2Ind',
+            'centerWordVectors', 'outsideVectors', 'dataset',
+            'word2vecLossAndGradient', **locals())
+    for word in outsideWords:
+        cost, gcv, gov = word2vecLossAndGradient(
+            centerWordVectors[word2Ind[currentCenterWord], :],
+            word2Ind[word],
+            outsideVectors,
+            dataset
+        )
+        loss += cost
+        gradCenterVecs[word2Ind[currentCenterWord], :] += gcv.T
+        gradOutsideVectors += gov.T
     ### END YOUR CODE
 
     return loss, gradCenterVecs, gradOutsideVectors
