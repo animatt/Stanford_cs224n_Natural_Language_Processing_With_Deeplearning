@@ -116,12 +116,13 @@ def minibatch_parse(sentences, model, batch_size):
     idx = 0
     N = len(sentences)
     while unfinished_parses:
-        batch = CircSlice(idx, batch_size, unfinished_parses)
+        # batch = CircSlice(idx, batch_size, unfinished_parses)
+        batch = unfinished_parses[:batch_size]
         transactions = model.predict(batch)
         for partial_parse, transaction in zip(batch, transactions):
             partial_parse.parse_step(transaction)
         unfinished_parses = [x for x in unfinished_parses if not x.done()]
-        idx = (idx + batch_size) % N
+        # idx = (idx + batch_size) % N
     dependencies = [parse.dependencies for parse in partial_parses]
     ### END YOUR CODE
 

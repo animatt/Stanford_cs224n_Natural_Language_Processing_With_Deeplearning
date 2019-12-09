@@ -1,8 +1,10 @@
 import re
+import torch
 import parse
 import importlib
 import numpy as np
 from behave import register_type
+
 
 @parse.with_pattern(r'\[[\[\]\-\d., ]+\]')
 def parse_ndarray(string):
@@ -27,7 +29,15 @@ def parse_dict(string):
 def parse_bool(string):
     return string == 'True'
 
+@parse.with_pattern(r'\[[\[\]\(\)\d\',\.\w\- ]*\]')
+def parse_tensor(string):
+    d = {'torch': torch}
+    exec(f'dictionary = torch.tensor({string})', d)
+    return d['dictionary']
+
+
 register_type(NdArray=parse_ndarray)
 register_type(Array=parse_array)
 register_type(Dict=parse_dict)
 register_type(Bool=parse_bool)
+register_type(Tensor=parse_tensor)
